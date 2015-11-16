@@ -44,12 +44,19 @@ public class Authorization
                 pw.println(pass);
                 pw.close();
                 
+               
                 System.out.println("File created");
             }
             catch(IOException io)
             {
                 io.printStackTrace();
             }
+        }
+        
+        File f=new File("request");
+        if(!f.exists()&&!f.isDirectory())
+        {
+            f.mkdir();///create directory for requests
         }
     }
     
