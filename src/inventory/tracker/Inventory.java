@@ -17,7 +17,7 @@ public class Inventory
 {
     private static Connection connect;
     //private static Statement statement;
-    private static PreparedStatement pstate;
+    private static PreparedStatement pstate;//////used to pass statements to the database such as queries or updates
     
     public static void init()
     {
@@ -25,7 +25,28 @@ public class Inventory
         {
             Class.forName("com.mysql.jdbc.Driver");
             
+            /////setup connection with database
             connect=DriverManager.getConnection("jdbc:mysql://localhost/Inventory?user=root&password=shamster#tech");
+            
+            ///////check if table 'item' exists in database 'inventory'
+            pstate=connect.prepareStatement("SELECT table_name FROM information_schema.tables where table_schema='inventory'");
+            ResultSet r=pstate.executeQuery();
+            
+            while(r.next())
+            {
+                String s=r.getString("table_name");
+                
+                System.out.println(s);
+                
+                if(!s.equals("item"))
+                {
+                    //////Then create table 'item'
+                    pstate=connect.prepareStatement("CREATE TABLE item(id varchar(15) NOT NULL,name varchar(25) NOT NULL,"
+                            + "quantity int NOT NULL, PRIMARY KEY (id), UNIQUE (id),UNIQUE (name));");
+                    
+                    pstate.executeUpdate();
+                }
+            }
             
             //statement= connect.createStatement();
         }
@@ -81,12 +102,12 @@ public class Inventory
         return result;
     }
     
-    private static void prep_add() throws SQLException
+    private static void prep_add() throws SQLException //////prepare statement for insert
     {
         pstate=connect.prepareStatement("insert into inventory.item values (?,?,?)");//parameters (id,name,quantity)
     }
     
-    private static void prep_search() throws SQLException
+    private static void prep_search() throws SQLException /////prepare statement for queries
     {
         pstate=connect.prepareStatement("select * from inventory.item where id=?");//parameter item id
     }

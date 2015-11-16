@@ -16,12 +16,35 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    private javax.swing.JTextField jtf[]=new javax.swing.JTextField[5];
+    
     public Menu() {
         initComponents();
         
         Inventory.init();/////prepare inventory 
     }
-
+    
+    private void reset(javax.swing.JTextField tf[],javax.swing.JTextArea ta,javax.swing.JLabel label)//clear dialog fields
+    {
+        if(tf.length>0)
+        {
+            for(javax.swing.JTextField t : tf)
+            {
+               t.setText("");
+            }
+        }
+        
+        if(label!=null)
+        {
+            label.setText("");
+        }
+        
+        if(ta!=null)
+        {
+            ta.setText("");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,7 +104,7 @@ public class Menu extends javax.swing.JFrame {
 
         qty_label.setText("Quantity:");
 
-        add_cancel.setText("Cancel");
+        add_cancel.setText("Close");
         add_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 add_cancelActionPerformed(evt);
@@ -102,50 +125,53 @@ public class Menu extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(add_submit)
+                .addGap(18, 18, 18)
+                .addComponent(add_cancel)
+                .addGap(9, 48, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(item_id_label)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(item_id, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(qty_label)
                             .addGap(18, 18, 18)
+                            .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(item_id_label)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(add_submit)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(add_cancel))
-                                .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(add_msg)
+                                .addComponent(item_id, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(item_name_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(add_msg)
-                            .addComponent(item_name, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 49, Short.MAX_VALUE))
+                        .addComponent(item_name, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
                 .addComponent(add_msg)
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(item_id_label)
+                    .addComponent(item_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(item_name_label)
                     .addComponent(item_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(item_id_label)
-                    .addComponent(item_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(qty_label)
                     .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(add_submit)
                     .addComponent(add_cancel))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout add_dialogLayout = new javax.swing.GroupLayout(add_dialog.getContentPane());
@@ -415,18 +441,23 @@ public class Menu extends javax.swing.JFrame {
     /*********************************Add Item*******************************************/
     //////Add item dialog
     private void addItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemActionPerformed
+        
         this.add_dialog.setVisible(true);
     }//GEN-LAST:event_addItemActionPerformed
     
     //////close add item dialog
     private void add_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_cancelActionPerformed
+        
+        jtf=new javax.swing.JTextField[]{item_id,item_name,qty};
+        reset(jtf,null,add_msg);
+        
         this.add_dialog.dispose();
     }//GEN-LAST:event_add_cancelActionPerformed
 
     /*****************************Search**************************************/
     //////Search for item dialog
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-       this.search_dialog.setVisible(true);
+        this.search_dialog.setVisible(true);
     }//GEN-LAST:event_searchActionPerformed
     
     //////search button
@@ -438,6 +469,10 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_search_submitActionPerformed
 
     private void search_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_cancelActionPerformed
+        
+        jtf=new javax.swing.JTextField[]{search_itemID};
+        reset(jtf,result,null);
+        
         this.search_dialog.dispose();
     }//GEN-LAST:event_search_cancelActionPerformed
 
@@ -450,6 +485,10 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_r_submitActionPerformed
 
     private void r_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_cancelActionPerformed
+        
+        jtf=new javax.swing.JTextField[]{r_empID,r_itemID,r_itemName,r_qty};
+        reset(jtf,null,null);
+        
         this.request_dialog.dispose();
     }//GEN-LAST:event_r_cancelActionPerformed
     
@@ -465,11 +504,14 @@ public class Menu extends javax.swing.JFrame {
             if(Inventory.UpdateInvent(new ItemInfo(item_id.getText(),item_name.getText(),
                     Integer.parseInt(qty.getText()))))
             {
-                add_dialog.dispose();
+                add_msg.setForeground(Color.blue);
+                add_msg.setText("Item successfully added");
+                //add_dialog.dispose();
             }
             else
             {
-                add_msg.setText("internal error occured");
+                add_msg.setForeground(Color.red);
+                add_msg.setText("internal database error occured");
             }
             
             //add_msg.setForeground(Color.green);
@@ -477,7 +519,7 @@ public class Menu extends javax.swing.JFrame {
         }
         catch(NumberFormatException nfe)
         {
-            //add_msg.setForeground(Color.red);
+            add_msg.setForeground(Color.red);
             add_msg.setText("invalid quantity entered");
         }
     }//GEN-LAST:event_add_submitActionPerformed
