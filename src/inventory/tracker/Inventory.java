@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -15,9 +16,15 @@ import java.sql.SQLException;
  */
 public class Inventory 
 {
+    private static final String db_name="inventory";///database name
     private static Connection connect;
-    //private static Statement statement;
+    
     private static PreparedStatement pstate;//////used to pass statements to the database such as queries or updates
+    
+    private static final String uname="root"///database username (if any)
+                                ,password="shamster#tech";///database password (if any)
+    
+    private static boolean dfound=false;
     
     public static void init()
     {
@@ -26,9 +33,49 @@ public class Inventory
             Class.forName("com.mysql.jdbc.Driver");
             
             /////setup connection with database
-            connect=DriverManager.getConnection("jdbc:mysql://localhost/Inventory?user=root&password=shamster#tech");
+            connect=DriverManager.getConnection("jdbc:mysql://localhost/mysql?user="+uname+"&password="+password);
             
-            ///////check if table 'item' exists in database 'inventory'
+            /////////////check for inventory database///////////////
+            ResultSet dnames=connect.getMetaData().getCatalogs();
+            String db;
+            
+            while(dnames.next())
+            {
+                db=dnames.getString("TABLE_CAT");
+                //System.out.println(db);
+                
+                if(db.contains(db_name))
+                {
+                   dfound=true;
+                   
+                   System.out.println("inventory already exists...");
+                   
+                   break;
+                }
+            }
+            
+           
+            if(!dfound)
+            {
+                Statement state=connect.createStatement();
+                state.executeUpdate("CREATE DATABASE "+db_name);///create database 'inventory'
+                
+                connect=DriverManager.getConnection("jdbc:mysql://localhost/"+db_name+"?user="+uname+"&password="+password);
+                state=connect.createStatement();
+                
+                ////////create table 'item'
+                state.executeUpdate("CREATE TABLE item(id varchar(15) NOT NULL,name varchar(25) NOT NULL,"
+                            + "quantity int NOT NULL, PRIMARY KEY (id))");
+                
+                state.executeUpdate("ALTER TABLE item ADD UNIQUE(id)");
+                state.executeUpdate("ALTER TABLE item ADD UNIQUE(name)");
+            }
+            else
+            {
+              connect=DriverManager.getConnection("jdbc:mysql://localhost/"+db_name+"?user="+uname+"&password="+password);  
+            }
+           
+            /*//////check if table 'item' exists in database 'inventory'
             pstate=connect.prepareStatement("SELECT table_name FROM information_schema.tables where table_schema='inventory'");
             ResultSet r=pstate.executeQuery();
             
@@ -46,7 +93,7 @@ public class Inventory
                     
                     pstate.executeUpdate();
                 }
-            }
+            }*/
             
             //statement= connect.createStatement();
         }
