@@ -149,6 +149,49 @@ public class Inventory
         return result;
     }
     
+    public static String showAll()
+    {
+        String result="";
+        
+        try
+        {
+            prep_showAll();
+            
+            ResultSet r=pstate.executeQuery();
+            
+            boolean isEmpty=true;
+            
+            result="ID\tName\tQuantity\n\n";
+            
+            while(r.next())
+            {
+                if(isEmpty)
+                {
+                    isEmpty=false;
+                }
+                
+                result+=r.getString("id")+"\t";
+                result+=r.getString("name")+"\t";
+                result+=r.getInt("quantity")+"\n\n";
+                
+                System.out.println(result);
+            }
+            
+            if(isEmpty)
+            {
+                result="empty";
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+            
+            result="empty";
+        }
+        
+        return result;
+    }
+    
     private static void prep_add() throws SQLException //////prepare statement for insert
     {
         pstate=connect.prepareStatement("insert into inventory.item values (?,?,?)");//parameters (id,name,quantity)
@@ -157,5 +200,10 @@ public class Inventory
     private static void prep_search() throws SQLException /////prepare statement for queries
     {
         pstate=connect.prepareStatement("select * from inventory.item where id=?");//parameter item id
+    }
+    
+    private static void prep_showAll() throws SQLException //////prepare statement for displaying all content
+    {
+        pstate=connect.prepareStatement("SELECT * FROM inventory.item");//parameters (id,name,quantity)
     }
 }

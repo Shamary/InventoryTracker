@@ -75,6 +75,7 @@ public class Menu extends javax.swing.JFrame {
         search_cancel = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         result = new javax.swing.JTextArea();
+        showAll = new javax.swing.JButton();
         request_dialog = new javax.swing.JDialog();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -189,9 +190,9 @@ public class Menu extends javax.swing.JFrame {
         );
 
         search_dialog.setTitle("Lookup Item");
-        search_dialog.setMinimumSize(new java.awt.Dimension(315, 260));
+        search_dialog.setMinimumSize(new java.awt.Dimension(335, 285));
         search_dialog.setModal(true);
-        search_dialog.setPreferredSize(new java.awt.Dimension(315, 260));
+        search_dialog.setPreferredSize(new java.awt.Dimension(335, 285));
 
         jLabel5.setText("Item ID:");
 
@@ -213,28 +214,35 @@ public class Menu extends javax.swing.JFrame {
         result.setRows(5);
         jScrollPane2.setViewportView(result);
 
+        showAll.setText("Show All");
+        showAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showAllActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(search_itemID, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 36, Short.MAX_VALUE)
-                        .addComponent(search_submit)
-                        .addGap(43, 43, 43)
-                        .addComponent(search_cancel)
-                        .addGap(48, 48, 48))))
-            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(search_itemID, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(search_submit)
+                .addGap(18, 18, 18)
+                .addComponent(showAll)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(search_cancel)
+                .addGap(48, 48, 48))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,11 +252,12 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(search_itemID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(search_submit)
-                    .addComponent(search_cancel))
+                    .addComponent(search_cancel)
+                    .addComponent(showAll))
                 .addContainerGap())
         );
 
@@ -570,6 +579,10 @@ public class Menu extends javax.swing.JFrame {
             add_msg.setText("invalid quantity entered");
         }
     }//GEN-LAST:event_add_submitActionPerformed
+
+    private void showAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllActionPerformed
+        result.setText(Inventory.showAll());
+    }//GEN-LAST:event_showAllActionPerformed
  
     
     /**
@@ -630,6 +643,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JDialog search_dialog;
     private javax.swing.JTextField search_itemID;
     private javax.swing.JButton search_submit;
+    private javax.swing.JButton showAll;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }
