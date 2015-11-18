@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Used to validate current user by user ID and password.
  */
 package inventory.tracker;
 
@@ -20,11 +18,17 @@ public class Authorization
     
     private static final String pass="12345";
     
-    public static void init()
+    //private static boolean authorized=false;
+    
+    private static final String valid_dir="valid";
+    
+    private static String valid_file_name=valid_dir+"/6.txt";
+    
+    public static void init()/////setup details for authorization
     {
         try
         {
-            Scanner scan=new Scanner(new File("vemp.txt"));
+            Scanner scan=new Scanner(new File(valid_file_name));
             System.out.println("File already created.");
         }
         catch(FileNotFoundException fne)
@@ -32,12 +36,16 @@ public class Authorization
             //fne.printStackTrace();
             //System.out.println();
 
+            new File(valid_dir).mkdir();////create valid employee directory
+            
             //id=67234Q1JB
             EmployeeInfo emp=new EmployeeInfo("6","Kevin","Thomas");
-
+            
+            valid_file_name=valid_dir+"/"+emp.getID()+".txt";/////set the file name to the employee's ID
+            
             try
             {
-                PrintWriter pw=new PrintWriter("vemp.txt");
+                PrintWriter pw=new PrintWriter(valid_file_name);
                 pw.println(emp.getID());
                 pw.println(emp.getFirstName());
                 pw.println(emp.getLastName());
@@ -45,7 +53,7 @@ public class Authorization
                 pw.close();
                 
                
-                System.out.println("File created");
+                System.out.println("File "+valid_file_name +" created");
             }
             catch(IOException io)
             {
@@ -61,11 +69,11 @@ public class Authorization
     }
     
     
-    public static boolean authorize(String uid,String password)
+    public static boolean authorize(String uid,String password)/////validate user ID and password
     {
         try
         {
-            Scanner scan=new Scanner(new File("vemp.txt"));
+            Scanner scan=new Scanner(new File(valid_file_name));
             
             String fname,lname,id,epass="";
             
@@ -92,6 +100,7 @@ public class Authorization
             
             if(uid.equals(id)&&password.equals(epass))
             {
+                //authorized=true;
                 return true;
             }
         }
@@ -103,4 +112,11 @@ public class Authorization
         
         return false;
     }
+    
+    /*
+    public static boolean is_auth()
+    {
+        return authorized;
+    }
+    */
 }

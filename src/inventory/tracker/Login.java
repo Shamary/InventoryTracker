@@ -164,11 +164,15 @@ public class Login extends javax.swing.JFrame {
     //////Submit button
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         
-        if(Authorization.authorize(userID.getText(),new String(passwordField.getPassword())))
+        String password=new String(passwordField.getPassword()),
+               uid=userID.getText();
+        
+        if(Authorization.authorize(uid,password))
         {
             dispose();
         
-            Menu m=new Menu();
+            Menu m=new Menu(uid,password);
+            
             m.setVisible(true);
         }
         else
@@ -180,7 +184,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_submitActionPerformed
 
     private void userIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userIDActionPerformed
-        id=userID.getText();
+        
     }//GEN-LAST:event_userIDActionPerformed
 
     /**
