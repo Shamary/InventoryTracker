@@ -25,7 +25,7 @@ public class Menu extends javax.swing.JFrame {
     public Menu(String uid,String password) {
         initComponents();
         
-        Inventory.init();/////prepare inventory 
+        Inventory.init(uid,password);/////prepare inventory 
         
         this.uid=uid;
         this.password=password;
@@ -88,11 +88,13 @@ public class Menu extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         r_itemID = new javax.swing.JTextField();
         r_qty = new javax.swing.JTextField();
-        r_empID = new javax.swing.JTextField();
         r_itemName = new javax.swing.JTextField();
         r_submit = new javax.swing.JButton();
         r_cancel = new javax.swing.JButton();
         r_msg = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        r_len = new javax.swing.JTextField();
+        r_empID = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
@@ -277,8 +279,9 @@ public class Menu extends javax.swing.JFrame {
         );
 
         request_dialog.setTitle("Request Item");
-        request_dialog.setMinimumSize(new java.awt.Dimension(338, 265));
+        request_dialog.setMinimumSize(new java.awt.Dimension(350, 298));
         request_dialog.setModal(true);
+        request_dialog.setPreferredSize(new java.awt.Dimension(350, 298));
 
         jLabel6.setText("Item ID:");
 
@@ -287,6 +290,12 @@ public class Menu extends javax.swing.JFrame {
         jLabel8.setText("Employee ID:");
 
         jLabel9.setText("Quantity:");
+
+        r_itemName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                r_itemNameActionPerformed(evt);
+            }
+        });
 
         r_submit.setText("Submit");
         r_submit.addActionListener(new java.awt.event.ActionListener() {
@@ -304,54 +313,60 @@ public class Menu extends javax.swing.JFrame {
 
         r_msg.setForeground(new java.awt.Color(0, 0, 255));
 
+        jLabel1.setText("Request length(in days):");
+
         javax.swing.GroupLayout request_dialogLayout = new javax.swing.GroupLayout(request_dialog.getContentPane());
         request_dialog.getContentPane().setLayout(request_dialogLayout);
         request_dialogLayout.setHorizontalGroup(
             request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(request_dialogLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(request_dialogLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(r_itemName, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(122, 122, 122)
+                        .addComponent(r_submit)
+                        .addGap(18, 18, 18)
+                        .addComponent(r_cancel))
                     .addGroup(request_dialogLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(r_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(request_dialogLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(request_dialogLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(r_submit)
-                                .addGap(18, 18, 18)
-                                .addComponent(r_cancel))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, request_dialogLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(r_empID, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, request_dialogLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(49, 49, 49)
                         .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(r_msg)
-                            .addComponent(r_itemID, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(87, Short.MAX_VALUE))
+                            .addGroup(request_dialogLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(r_len, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, request_dialogLayout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(r_empID, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(request_dialogLayout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(184, 184, 184)))
+                            .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(request_dialogLayout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(r_itemName, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(r_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(r_msg)
+                                    .addComponent(r_itemID, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         request_dialogLayout.setVerticalGroup(
             request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(request_dialogLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(8, 8, 8)
                 .addComponent(r_msg)
-                .addGap(5, 5, 5)
+                .addGap(18, 18, 18)
                 .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(r_itemID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(r_itemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(r_itemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(r_qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -359,12 +374,18 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(r_empID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(r_len, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(r_submit)
                     .addComponent(r_cancel))
                 .addContainerGap())
         );
+
+        jLabel1.getAccessibleContext().setAccessibleName("");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -492,7 +513,7 @@ public class Menu extends javax.swing.JFrame {
         
         String res=Inventory.searchItem(search_itemID.getText());
         
-        result.setText("\tRESULT\n\n"+res);
+        result.setText("\tRESULT\n\nName\tQuantity\n\n"+res);
     }//GEN-LAST:event_search_submitActionPerformed
 
     private void search_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_cancelActionPerformed
@@ -511,7 +532,8 @@ public class Menu extends javax.swing.JFrame {
         
         if(!invalid(r_empID.getText()))
         {
-            if(!(result=Inventory.searchItem(r_itemID.getText())).toLowerCase().contains("not found"))////if item found
+            if(!(result=Inventory.searchItem(r_itemID.getText())).toLowerCase().contains("not found") &&
+                    get_cur_qty(result)>Integer.parseInt(r_qty.getText()))////if item found
             {
                 r_msg.setForeground(Color.blue);
                 r_msg.setText("Request sent");
@@ -519,18 +541,15 @@ public class Menu extends javax.swing.JFrame {
                 try
                 {
                     //////used to extract item name
-                    int i=result.indexOf(" ");
-                    int j=result.indexOf("\n");
+                    //int i=result.indexOf(" ");
+                    //int j=result.indexOf("\n");
 
-                    if(r_itemName.getText().equals(result.substring(i+1,j)))
+                    int i=result.indexOf("\t");
+                    
+                    if(r_itemName.getText().equals(result.substring(0,i)))
                     {
-                        ////add request info
-                        PrintWriter pw=new PrintWriter("request/"+r_empID.getText()+"_request_for_"+r_itemName.getText()+".txt");
-                        pw.println("Employee ID: "+r_empID.getText());
-                        pw.println("Item ID: "+r_itemID.getText());
-                        pw.println("Item name: "+r_itemName.getText());
-                        pw.println("request quantity: "+r_qty.getText());
-                        pw.close();
+                        new EmployeeInfo(r_empID.getText()).requestItem(new ItemInfo(r_itemID.getText(),
+                                r_itemName.getText(),Integer.parseInt(r_qty.getText()),Integer.parseInt(r_len.getText())));
                     }
                     else
                     {
@@ -542,13 +561,20 @@ public class Menu extends javax.swing.JFrame {
                     io.printStackTrace();
 
                     r_msg.setForeground(Color.red);
-                    r_msg.setText("Item not found");
+                    r_msg.setText("Request error");
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                    
+                    r_msg.setForeground(Color.red);
+                    r_msg.setText("Request error");
                 }
             }
             else
             {
                 r_msg.setForeground(Color.red);
-                r_msg.setText("Item not found");
+                r_msg.setText("Request error");
             }
         }
         else
@@ -580,8 +606,24 @@ public class Menu extends javax.swing.JFrame {
         {
             if(!invalid(item_id.getText())&&!invalid(item_name.getText()))
             {
-                if(Inventory.UpdateInvent(new ItemInfo(item_id.getText(),item_name.getText(),
-                        Integer.parseInt(qty.getText()))))
+                ItemInfo item=new ItemInfo(item_id.getText(),item_name.getText(),Integer.parseInt(qty.getText()));
+                
+                if(Inventory.searchItem(item.getID()).toLowerCase().contains("name"))////search if item already in database
+                {
+                    if(Inventory.update(item.getID(),item.getQty()))
+                    {
+                        add_msg.setForeground(Color.blue);
+                        add_msg.setText("Item successfully added");
+                    }
+                    else
+                    {
+                        add_msg.setForeground(Color.red);
+                        add_msg.setText("Item failed to update");
+                    }
+                    
+                    System.out.println("item found");
+                }
+                else if(Inventory.UpdateInvent(item))
                 {
                     add_msg.setForeground(Color.blue);
                     add_msg.setText("Item successfully added");
@@ -612,9 +654,29 @@ public class Menu extends javax.swing.JFrame {
     private void showAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllActionPerformed
         result.setText(Inventory.showAll());
     }//GEN-LAST:event_showAllActionPerformed
+
+    private void r_itemNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_itemNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_r_itemNameActionPerformed
  
     
-    private boolean invalid(String s)
+    private int get_cur_qty(String res)///get current quantity of an item
+    {
+        int i=res.indexOf("\t");
+        
+        try
+        {
+            return Integer.parseInt(res.substring(i+1));
+        }
+        catch(NumberFormatException e)
+        {
+            e.printStackTrace();
+        }
+        
+        return 0;
+    }
+    
+    private boolean invalid(String s)///check for invalid string
     {  
         return (s.equals("")||s.charAt(0)==' ');
     }
@@ -649,6 +711,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel item_id_label;
     private javax.swing.JTextField item_name;
     private javax.swing.JLabel item_name_label;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -666,6 +729,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTextField r_empID;
     private javax.swing.JTextField r_itemID;
     private javax.swing.JTextField r_itemName;
+    private javax.swing.JTextField r_len;
     private javax.swing.JLabel r_msg;
     private javax.swing.JTextField r_qty;
     private javax.swing.JButton r_submit;

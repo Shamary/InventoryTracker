@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *Represents item information
  */
 package inventory.tracker;
 
@@ -12,7 +10,7 @@ package inventory.tracker;
 public class ItemInfo 
 {
     private String id,name;
-    private int qty;
+    private int qty,howLong;
     
     public ItemInfo(String id,String name,int qty)
     {
@@ -21,9 +19,22 @@ public class ItemInfo
         this.qty=qty;
     }
     
+    public ItemInfo(String id,String name,int qty,int howLong)
+    {
+        this.id=id;
+        this.name=name;
+        this.qty=qty;
+        this.howLong=howLong;
+    }
+    
     public String getID()
     {
         return id;
+    }
+    
+    public void setName(String name)
+    {
+        this.name=name;
     }
     
     public String getName()
@@ -31,9 +42,19 @@ public class ItemInfo
         return name;
     }
     
+    public void setQty(int qty)
+    {
+        this.qty=qty;
+    }
+    
     public int getQty()
     {
         return qty;
+    }
+    
+    public int get_how_long()
+    {
+        return howLong;
     }
     
 }

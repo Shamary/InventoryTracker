@@ -2,3 +2,4 @@ Employee ID: 495H3
 Item ID: 575GB
 Item name: bolt
 request quantity: 5
+request lenght: 7 days

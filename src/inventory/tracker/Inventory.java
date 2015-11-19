@@ -26,10 +26,15 @@ public class Inventory
     
     private static boolean dfound=false;
     
-    public static void init()
+    private static String uid,upassword;
+    
+    public static void init(String id,String upass)
     {
         try
         {
+            uid=id;
+            upassword=upass;
+            
             Class.forName("com.mysql.jdbc.Driver");
             
             /////setup connection with database
@@ -67,7 +72,7 @@ public class Inventory
                 state.executeUpdate("CREATE TABLE item(id varchar(15) NOT NULL,name varchar(25) NOT NULL,"
                             + "quantity int NOT NULL, PRIMARY KEY (id))");
                 
-                state.executeUpdate("ALTER TABLE item ADD UNIQUE(id)");
+                //state.executeUpdate("ALTER TABLE item ADD UNIQUE(id)");
                 state.executeUpdate("ALTER TABLE item ADD UNIQUE(name)");
             }
             else
@@ -85,16 +90,49 @@ public class Inventory
     {
         try
         {
-            prep_add();
+            if(Authorization.authorize(uid,upassword))
+            {
+                prep_add();
+
+                pstate.setString(1,item.getID());
+                pstate.setString(2,item.getName());
+                pstate.setInt(3,item.getQty());
+                pstate.executeUpdate();
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        return false;
+    }
+    
+    public static boolean update(String id,int amt)
+    {
+        try
+        {
+            prep_update(amt,id);
             
-            pstate.setString(1,item.getID());
-            pstate.setString(2,item.getName());
-            pstate.setInt(3,item.getQty());
             pstate.executeUpdate();
             
             return true;
         }
         catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        catch(Exception e)
         {
             e.printStackTrace();
         }
@@ -104,22 +142,36 @@ public class Inventory
     
     public static String searchItem(String id)/////searches for an item in the database
     {
-        String result="not found";
+        String result="not found\tnot found";
         
         try
         {
-            prep_search();
-            
-            pstate.setString(1,id);
-            ResultSet r=pstate.executeQuery();
-            
-            while(r.next())
+            if(Authorization.authorize(uid,upassword))
             {
-                result="Name: "+r.getString("name")+"\n";
-                result+="Quantity: "+r.getInt("quantity");
+                prep_search();
+
+                pstate.setString(1,id);
+                ResultSet r=pstate.executeQuery();
+
+                while(r.next())
+                {
+                    //result="Name: "+r.getString("name")+"\n";
+                    //result+="Quantity: "+r.getInt("quantity");
+                    
+                    result=r.getString("name")+"\t";
+                    result+=r.getInt("quantity");
+                }
+            }
+            else
+            {
+                return "validation error";
             }
         }
         catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        catch(Exception e)
         {
             e.printStackTrace();
         }
@@ -133,31 +185,39 @@ public class Inventory
         
         try
         {
-            prep_showAll();
-            
-            ResultSet r=pstate.executeQuery();
-            
-            boolean isEmpty=true;
-            
-            result="ID\tName\tQuantity\n\n";
-            
-            while(r.next())
+            if(Authorization.authorize(uid,upassword))
             {
+                prep_showAll();
+
+                ResultSet r=pstate.executeQuery();
+
+                boolean isEmpty=true;
+
+                result="ID\tName\tQuantity\n\n";
+
+                while(r.next())
+                {
+                    if(isEmpty)
+                    {
+                        isEmpty=false;
+                    }
+
+                    result+=r.getString("id")+"\t";
+                    result+=r.getString("name")+"\t";
+                    result+=r.getInt("quantity")+"\n\n";
+
+                    System.out.println(result);
+                }
+
                 if(isEmpty)
                 {
-                    isEmpty=false;
+                    result="empty";
                 }
-                
-                result+=r.getString("id")+"\t";
-                result+=r.getString("name")+"\t";
-                result+=r.getInt("quantity")+"\n\n";
-                
-                System.out.println(result);
-            }
             
-            if(isEmpty)
+            }
+            else
             {
-                result="empty";
+                return "validation error";
             }
         }
         catch(SQLException e)
@@ -166,6 +226,10 @@ public class Inventory
             
             result="empty";
         }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
         
         return result;
     }
@@ -173,6 +237,12 @@ public class Inventory
     private static void prep_add() throws SQLException //////prepare statement for insert
     {
         pstate=connect.prepareStatement("insert into inventory.item values (?,?,?)");//parameters (id,name,quantity)
+    }
+    
+    private static void prep_update(int amt,String id) throws SQLException //////prepare statement for update
+    {
+        //pstate=connect.prepareStatement("UPDATE inventory.item SET quantity= quantity + "+amt+" WHERE id= "+id);//parameters (id,name,quantity)
+        pstate=connect.prepareStatement("UPDATE inventory.item SET quantity= "+amt+" WHERE id= '"+id+"'");
     }
     
     private static void prep_search() throws SQLException /////prepare statement for queries

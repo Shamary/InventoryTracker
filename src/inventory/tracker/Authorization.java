@@ -98,7 +98,7 @@ public class Authorization
                 line++;
             }
             
-            if(uid.equals(id)&&password.equals(epass))
+            if(uid.equals(id)&&password.equals(epass))/////login info validated
             {
                 //authorized=true;
                 return true;
@@ -109,7 +109,10 @@ public class Authorization
             fne.printStackTrace();
             //System.out.println();
         }
-        
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }        
         return false;
     }
     
