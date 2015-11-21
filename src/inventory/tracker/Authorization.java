@@ -20,7 +20,7 @@ public class Authorization
     
     //private static boolean authorized=false;
     
-    private static final String valid_dir="valid";
+    private static final String valid_dir="valid",report_dir="Reports";
     
     private static String valid_file_name=valid_dir+"/6.txt";
     
@@ -37,6 +37,8 @@ public class Authorization
             //System.out.println();
 
             new File(valid_dir).mkdir();////create valid employee directory
+            
+            new File(report_dir).mkdir();///create directory for reports
             
             //id=67234Q1JB
             EmployeeInfo emp=new EmployeeInfo("6","Kevin","Thomas");

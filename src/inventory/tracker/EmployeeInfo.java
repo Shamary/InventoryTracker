@@ -51,7 +51,7 @@ public class EmployeeInfo
         this.lname=lname;
     }
     
-    private String info()
+    protected String info()
     {
         return getFirstName()+" "+getLastName()+" ("+getID()+")";
     }

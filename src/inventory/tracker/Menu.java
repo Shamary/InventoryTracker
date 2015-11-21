@@ -1,13 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Menu GUI
  */
 package inventory.tracker;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  *
@@ -530,7 +527,7 @@ public class Menu extends javax.swing.JFrame {
         
         String result="";
         
-        if(!invalid(r_empID.getText()))
+        if(!invalid(r_empID.getText())&&Integer.parseInt(r_qty.getText())>0)
         {
             if(!(result=Inventory.searchItem(r_itemID.getText())).toLowerCase().contains("not found") &&
                     get_cur_qty(result)>Integer.parseInt(r_qty.getText()))////if item found
@@ -561,7 +558,7 @@ public class Menu extends javax.swing.JFrame {
                     io.printStackTrace();
 
                     r_msg.setForeground(Color.red);
-                    r_msg.setText("Request error");
+                    r_msg.setText("Request error (invalid item name)");
                 }
                 catch(Exception e)
                 {
@@ -574,7 +571,7 @@ public class Menu extends javax.swing.JFrame {
             else
             {
                 r_msg.setForeground(Color.red);
-                r_msg.setText("Request error");
+                r_msg.setText("Request error (item not found or invalid duration)");
             }
         }
         else

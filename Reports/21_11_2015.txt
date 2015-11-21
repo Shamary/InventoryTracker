@@ -1,0 +1,7 @@
+ID	Name	Quantity
+
+575GB	bolt	300
+
+8A2B55	L-Arm	95
+
+
