@@ -57,4 +57,10 @@ public class ItemInfo
         return howLong;
     }
     
+    @Override
+    public String toString()
+    {
+        return "["+id+" "+name+" "+qty+"]";
+    }
+    
 }

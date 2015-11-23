@@ -25,7 +25,7 @@ public class Inventory
     private static final String db_name="inventory";///database name
     private static Connection connect;
     
-    private static PreparedStatement pstate;//////used to pass statements to the database such as queries or updates
+    //private static PreparedStatement pstate;//////used to pass statements to the database such as queries or updates
     
     private static final String uname="root"///database username (if any)
                                 ,password="shamster#tech";///database password (if any)
@@ -46,7 +46,7 @@ public class Inventory
             /////setup connection with database
             connect=DriverManager.getConnection("jdbc:mysql://localhost/mysql?user="+uname+"&password="+password);
             
-            /////////////check for inventory database///////////////
+            /////////////check for 'inventory' database///////////////
             ResultSet dnames=connect.getMetaData().getCatalogs();
             String db;
             
@@ -86,12 +86,17 @@ public class Inventory
               connect=DriverManager.getConnection("jdbc:mysql://localhost/"+db_name+"?user="+uname+"&password="+password);  
             }
             
-            genReport();
+            InventReport();
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
             e.printStackTrace();
         }
+        catch(ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+       
     }
     
     public static boolean UpdateInvent(ItemInfo item)////Adds an item to the database
@@ -100,7 +105,7 @@ public class Inventory
         {
             if(Authorization.authorize(uid,upassword))
             {
-                prep_add();
+                PreparedStatement pstate=prep_add();
 
                 pstate.setString(1,item.getID());
                 pstate.setString(2,item.getName());
@@ -130,7 +135,10 @@ public class Inventory
     {
         try
         {
-            prep_update(amt,id);
+            PreparedStatement pstate=prep_update();
+            
+            pstate.setString(1,""+amt);
+            pstate.setString(2,id);
             
             pstate.executeUpdate();
             
@@ -156,7 +164,7 @@ public class Inventory
         {
             if(Authorization.authorize(uid,upassword))
             {
-                prep_search();
+                PreparedStatement pstate=prep_search();
 
                 pstate.setString(1,id);
                 ResultSet r=pstate.executeQuery();
@@ -195,7 +203,7 @@ public class Inventory
         {
             if(Authorization.authorize(uid,upassword))
             {
-                prep_showAll();
+                PreparedStatement pstate=prep_showAll();
 
                 ResultSet r=pstate.executeQuery();
 
@@ -221,7 +229,6 @@ public class Inventory
                 {
                     result="empty";
                 }
-            
             }
             else
             {
@@ -246,7 +253,7 @@ public class Inventory
     {
         try
         {
-            prep_delete();
+            PreparedStatement pstate=prep_delete();
             
             pstate.setString(1,id);
             
@@ -262,34 +269,34 @@ public class Inventory
         }
     }
     
-    private static void prep_add() throws SQLException //////prepare statement for insert
+    private static PreparedStatement prep_add() throws SQLException //////prepare statement for insert
     {
-        pstate=connect.prepareStatement("insert into inventory.item values (?,?,?)");//parameters (id,name,quantity)
+        return connect.prepareStatement("insert into inventory.item values (?,?,?)");//parameters (id,name,quantity)
     }
     
-    private static void prep_update(int amt,String id) throws SQLException //////prepare statement for update
+    private static PreparedStatement prep_update() throws SQLException //////prepare statement for update
     {
         //pstate=connect.prepareStatement("UPDATE inventory.item SET quantity= quantity + "+amt+" WHERE id= "+id);//parameters (id,name,quantity)
-        pstate=connect.prepareStatement("UPDATE inventory.item SET quantity= "+amt+" WHERE id= '"+id+"'");
+        return connect.prepareStatement("UPDATE inventory.item SET quantity=? WHERE id=?");//parameters quantity, id
     }
     
-    private static void prep_search() throws SQLException /////prepare statement for queries
+    private static PreparedStatement prep_search() throws SQLException /////prepare statement for queries
     {
-        pstate=connect.prepareStatement("select * from inventory.item where id=?");//parameter item id
+        return connect.prepareStatement("select * from inventory.item where id=?");//parameter item id
     }
     
-    private static void prep_showAll() throws SQLException //////prepare statement for displaying all content
+    private static PreparedStatement prep_showAll() throws SQLException //////prepare statement for displaying all content
     {
-        pstate=connect.prepareStatement("SELECT * FROM inventory.item");//parameters (id,name,quantity)
+        return connect.prepareStatement("SELECT * FROM inventory.item");//parameters (id,name,quantity)
     }
     
-    private static void prep_delete() throws SQLException //////prepare statement for deleting content
+    private static PreparedStatement prep_delete() throws SQLException //////prepare statement for deleting content
     {
-        pstate=connect.prepareStatement("DELETE FROM inventory.item WHERE id=?");//parameters (id,name,quantity)
+        return connect.prepareStatement("DELETE FROM inventory.item WHERE id=?");//parameters (id,name,quantity)
     }
     
     
-    private static void genReport()//////Generate report weekly
+    private static void InventReport()//////Generate report weekly
     {      
         Timer timer=new Timer();
         
@@ -299,39 +306,46 @@ public class Inventory
         {
             @Override
             public void run()
-            {
-                String rep=showAll();
+            {   
+                Calendar c=Calendar.getInstance();
                 
-                System.out.println(rep);
+                //System.out.println("In report "+c.get(Calendar.DAY_OF_WEEK)+" "+Calendar.SUNDAY);
                 
-                String file_name="Reports/"+c.get(Calendar.DAY_OF_MONTH)/*+"_"+c.get(Calendar.WEEK_OF_MONTH)*/+"_"+
-                                (c.get(Calendar.MONTH)+1)+"_"+c.get(Calendar.YEAR)+".txt";
-                
-                File file=new File(file_name);
-                
-                if(!file.exists())
+                if(c.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY)////if the current day is Sunday generate report 
                 {
-                    try
-                    { 
-                       //rep=rep.replaceAll("\n", System.lineSeparator());
-                       PrintWriter pw=new PrintWriter(file_name);
-                       pw.println(rep);
-                       pw.close();
-                    }
-                    catch(IOException e)
+                    String rep=showAll();
+
+                    System.out.println(rep);
+
+                    String file_name=Authorization.getDir("report")+c.get(Calendar.DAY_OF_MONTH)/*+"_"+c.get(Calendar.WEEK_OF_MONTH)*/+"_"+
+                                    (c.get(Calendar.MONTH)+1)+"_"+c.get(Calendar.YEAR)+".txt";
+
+                    File file=new File(file_name);
+
+                    if(!file.exists())///if report already exists
                     {
-                        e.printStackTrace();
+                        try
+                        { 
+                           //rep=rep.replaceAll("\n", System.lineSeparator());
+                           PrintWriter pw=new PrintWriter(file_name);
+                           pw.println(rep);
+                           pw.close();
+                        }
+                        catch(IOException e)
+                        {
+                            e.printStackTrace();
+                        }
                     }
-                }
+                } 
             }
         };
         
-        long period=7*24*60*60*1000;//delay 1 week (7 days)
+        long period=1*24*60*60*1000;//delay 1 day (24 hours)
         
         //System.out.println(c.get(Calendar.YEAR)+" "+c.get(Calendar.DAY_OF_MONTH));
             
         c.set(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH),17,0);///day of install at 5 pm
-        System.out.println(c.getTime());
+        //System.out.println(c.getTime());
         timer.scheduleAtFixedRate(task,c.getTime(),period);
     }
 }

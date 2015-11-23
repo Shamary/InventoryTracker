@@ -20,9 +20,11 @@ public class Authorization
     
     //private static boolean authorized=false;
     
-    private static final String valid_dir="valid",report_dir="Reports";
+    private static final String valid_dir="Valid"//directory for valid employees
+                                ,report_dir="Reports"//directory for Reports
+                                ,request_dir="Request";
     
-    private static String valid_file_name=valid_dir+"/6.txt";
+    private static String valid_file_name=valid_dir+"/USER123.txt";
     
     public static void init()/////setup details for authorization
     {
@@ -33,15 +35,12 @@ public class Authorization
         }
         catch(FileNotFoundException fne)
         {
-            //fne.printStackTrace();
-            //System.out.println();
-
             new File(valid_dir).mkdir();////create valid employee directory
             
             new File(report_dir).mkdir();///create directory for reports
             
-            //id=67234Q1JB
-            EmployeeInfo emp=new EmployeeInfo("6","Kevin","Thomas");
+            //id=USER123
+            EmployeeInfo emp=new EmployeeInfo("USER123","Kevin","Thomas");
             
             valid_file_name=valid_dir+"/"+emp.getID()+".txt";/////set the file name to the employee's ID
             
@@ -63,7 +62,7 @@ public class Authorization
             }
         }
         
-        File f=new File("request");
+        File f=new File(request_dir);
         if(!f.exists()&&!f.isDirectory())
         {
             f.mkdir();///create directory for requests
@@ -118,10 +117,17 @@ public class Authorization
         return false;
     }
     
-    /*
-    public static boolean is_auth()
+    protected static String getDir(String dir)///get directory for reports or requests
     {
-        return authorized;
+        if(dir.toLowerCase().contains("req"))
+        {
+            return request_dir+"/";
+        }
+        else if(dir.toLowerCase().contains("rep"))
+        {
+            return report_dir+"/";
+        }        
+        
+        return "";
     }
-    */
 }

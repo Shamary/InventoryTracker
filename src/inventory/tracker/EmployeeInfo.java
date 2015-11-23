@@ -59,7 +59,7 @@ public class EmployeeInfo
     public void requestItem(ItemInfo item) throws IOException
     {
         ////add request info
-        PrintWriter pw=new PrintWriter("request/"+id+"_request_for_"+item.getName()+".txt");
+        PrintWriter pw=new PrintWriter(Authorization.getDir("request")+id+"_request_for_"+item.getName()+".txt");
         pw.println("Employee ID: "+id);
         pw.println("Item ID: "+item.getID());
         pw.println("Item name: "+item.getName());

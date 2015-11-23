@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package inventory.tracker;
 
 import org.junit.After;
@@ -55,7 +50,7 @@ public class AuthorizationTest {
     @Test
     public void testAuthorize() {
         System.out.println("authorize");
-        String uid = "6";
+        String uid = "USER123";
         String password = "12345";
         boolean expResult = true;
         boolean result = Authorization.authorize(uid, password);
@@ -65,7 +60,7 @@ public class AuthorizationTest {
     @Test
     public void testAuthorize2(){
         System.out.println("authorize");
-        String uid = "6";
+        String uid = "USER123";
         String password = "abcde";
         boolean expResult = false;
         boolean result = Authorization.authorize(uid, password);
