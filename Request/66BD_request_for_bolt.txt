@@ -1,0 +1,5 @@
+Employee ID: 66BD
+Item ID: 575GB
+Item name: bolt
+request quantity: 34
+request lenght: 8 days

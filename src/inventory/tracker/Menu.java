@@ -5,6 +5,7 @@ package inventory.tracker;
 
 import java.awt.Color;
 import java.io.IOException;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -73,25 +74,26 @@ public class Menu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         item_label_sd = new javax.swing.JLabel();
         search_itemID = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        dTable = new javax.swing.JTable();
         search_submit = new javax.swing.JButton();
-        search_cancel = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        result = new javax.swing.JTextArea();
         showAll = new javax.swing.JButton();
+        search_cancel = new javax.swing.JButton();
         request_dialog = new javax.swing.JDialog();
+        jPanel4 = new javax.swing.JPanel();
+        r_msg = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        r_itemID = new javax.swing.JTextField();
+        r_itemName = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        r_itemID = new javax.swing.JTextField();
         r_qty = new javax.swing.JTextField();
-        r_itemName = new javax.swing.JTextField();
-        r_submit = new javax.swing.JButton();
-        r_cancel = new javax.swing.JButton();
-        r_msg = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        r_len = new javax.swing.JTextField();
         r_empID = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        r_submit = new javax.swing.JButton();
+        r_len = new javax.swing.JTextField();
+        r_cancel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
@@ -103,15 +105,30 @@ public class Menu extends javax.swing.JFrame {
 
         add_dialog.setTitle("Add Item");
         add_dialog.setIconImage(null);
-        add_dialog.setMinimumSize(new java.awt.Dimension(300, 270));
+        add_dialog.setMinimumSize(new java.awt.Dimension(383, 330));
         add_dialog.setModal(true);
+        add_dialog.setPreferredSize(new java.awt.Dimension(383, 330));
+        add_dialog.setResizable(false);
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "v1.0", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tekton Pro Ext", 0, 11))); // NOI18N
+        jPanel2.setPreferredSize(new java.awt.Dimension(400, 370));
+
+        item_name_label.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         item_name_label.setText("Item name:");
 
+        item_name.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+
+        item_id_label.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         item_id_label.setText("Item ID:");
 
+        item_id.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+
+        qty_label.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         qty_label.setText("Quantity:");
 
+        qty.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+
+        add_cancel.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         add_cancel.setText("Close");
         add_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,6 +136,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        add_submit.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         add_submit.setText("Submit");
         add_submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,35 +144,37 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        add_msg.setToolTipText("");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(add_submit)
-                        .addGap(18, 18, 18)
-                        .addComponent(add_cancel))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(qty_label)
-                                .addGap(18, 18, 18)
-                                .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(item_id_label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(add_msg)
-                                    .addComponent(item_id, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(item_name_label)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(item_name, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                            .addComponent(qty_label)
+                            .addGap(18, 18, 18)
+                            .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(item_id_label)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(add_msg)
+                                .addComponent(item_id, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(item_name_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(item_name, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(add_submit)
+                .addGap(18, 18, 18)
+                .addComponent(add_cancel)
+                .addGap(61, 61, 61))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,30 +192,63 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(qty_label)
                     .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(add_submit)
                     .addComponent(add_cancel))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout add_dialogLayout = new javax.swing.GroupLayout(add_dialog.getContentPane());
         add_dialog.getContentPane().setLayout(add_dialogLayout);
         add_dialogLayout.setHorizontalGroup(
             add_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
         );
         add_dialogLayout.setVerticalGroup(
             add_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
 
         search_dialog.setTitle("Lookup Item");
-        search_dialog.setMinimumSize(new java.awt.Dimension(335, 285));
+        search_dialog.setMinimumSize(new java.awt.Dimension(383, 330));
         search_dialog.setModal(true);
+        search_dialog.setPreferredSize(new java.awt.Dimension(383, 330));
+        search_dialog.setResizable(false);
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "v1.0", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tekton Pro Ext", 0, 11))); // NOI18N
+
+        item_label_sd.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         item_label_sd.setText("Item ID:");
 
+        search_itemID.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+
+        dTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Quantity"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(dTable);
+
+        search_submit.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         search_submit.setText("Search");
         search_submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,21 +256,19 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        search_cancel.setText("Close");
-        search_cancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                search_cancelActionPerformed(evt);
-            }
-        });
-
-        result.setColumns(20);
-        result.setRows(5);
-        jScrollPane2.setViewportView(result);
-
+        showAll.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         showAll.setText("Show All");
         showAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showAllActionPerformed(evt);
+            }
+        });
+
+        search_cancel.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+        search_cancel.setText("Close");
+        search_cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                search_cancelActionPerformed(evt);
             }
         });
 
@@ -230,18 +281,18 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(item_label_sd)
                 .addGap(18, 18, 18)
                 .addComponent(search_itemID, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 117, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(search_submit)
-                .addGap(18, 18, 18)
-                .addComponent(showAll)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(search_cancel)
-                .addGap(48, 48, 48))
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(search_submit)
+                .addGap(26, 26, 26)
+                .addComponent(showAll)
+                .addGap(27, 27, 27)
+                .addComponent(search_cancel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -251,9 +302,9 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(item_label_sd)
                     .addComponent(search_itemID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(search_submit)
                     .addComponent(search_cancel)
@@ -273,24 +324,48 @@ public class Menu extends javax.swing.JFrame {
         );
 
         request_dialog.setTitle("Request Item");
-        request_dialog.setMinimumSize(new java.awt.Dimension(350, 298));
+        request_dialog.setMinimumSize(new java.awt.Dimension(383, 330));
         request_dialog.setModal(true);
-        request_dialog.setPreferredSize(new java.awt.Dimension(350, 298));
+        request_dialog.setPreferredSize(new java.awt.Dimension(383, 330));
+        request_dialog.setResizable(false);
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "v1.0", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tekton Pro Ext", 0, 11))); // NOI18N
+        jPanel4.setPreferredSize(new java.awt.Dimension(362, 341));
+
+        r_msg.setForeground(new java.awt.Color(0, 0, 255));
+        r_msg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        r_msg.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        r_msg.setName(""); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         jLabel6.setText("Item ID:");
 
-        jLabel8.setText("Employee ID:");
+        r_itemID.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
 
-        jLabel7.setText("Item name:");
-
-        jLabel9.setText("Quantity:");
-
+        r_itemName.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         r_itemName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r_itemNameActionPerformed(evt);
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+        jLabel7.setText("Item name:");
+
+        jLabel9.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+        jLabel9.setText("Quantity:");
+
+        r_qty.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+
+        r_empID.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+
+        jLabel8.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+        jLabel8.setText("Employee ID:");
+
+        jLabel1.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+        jLabel1.setText("Request length(in days):");
+
+        r_submit.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         r_submit.setText("Submit");
         r_submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,6 +373,9 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        r_len.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+
+        r_cancel.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
         r_cancel.setText("Close");
         r_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -305,91 +383,108 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        r_msg.setForeground(new java.awt.Color(0, 0, 255));
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(r_empID, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(r_len, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(r_qty, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                            .addComponent(r_itemName, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                            .addComponent(r_itemID, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(r_submit)
+                .addGap(18, 18, 18)
+                .addComponent(r_cancel)
+                .addGap(89, 89, 89))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addComponent(r_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(r_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(r_itemID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(r_itemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(r_qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(r_empID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(r_len, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(r_submit)
+                    .addComponent(r_cancel))
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
 
-        jLabel1.setText("Request length(in days):");
+        jLabel1.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout request_dialogLayout = new javax.swing.GroupLayout(request_dialog.getContentPane());
         request_dialog.getContentPane().setLayout(request_dialogLayout);
         request_dialogLayout.setHorizontalGroup(
             request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(request_dialogLayout.createSequentialGroup()
-                .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(request_dialogLayout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(r_msg))
-                    .addGroup(request_dialogLayout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addGroup(request_dialogLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(r_empID, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel6)
-                            .addGroup(request_dialogLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(r_len, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(request_dialogLayout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(r_itemName, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(r_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(request_dialogLayout.createSequentialGroup()
-                                    .addComponent(r_submit)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(r_cancel))
-                                .addComponent(r_itemID, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(90, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
         );
         request_dialogLayout.setVerticalGroup(
             request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(request_dialogLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(r_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(r_itemID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(r_itemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(r_qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(r_empID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(r_len, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                .addGroup(request_dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(r_submit)
-                    .addComponent(r_cancel))
-                .addGap(32, 32, 32))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 31, Short.MAX_VALUE))
         );
-
-        jLabel1.getAccessibleContext().setAccessibleName("");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "v1.0", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tekton Pro Ext", 0, 11))); // NOI18N
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        title.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        title.setFont(new java.awt.Font("Quartz MS", 0, 48)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("Inventory Tracker");
 
+        request.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+        request.setForeground(new java.awt.Color(51, 51, 51));
         request.setText("Request item");
         request.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -397,6 +492,8 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        addItem.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+        addItem.setForeground(new java.awt.Color(51, 51, 51));
         addItem.setText("Add item");
         addItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -404,6 +501,8 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        search.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+        search.setForeground(new java.awt.Color(51, 51, 51));
         search.setText("Search item");
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,6 +510,8 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        exit.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+        exit.setForeground(new java.awt.Color(255, 0, 0));
         exit.setText("Exit");
         exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,12 +523,12 @@ public class Menu extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(85, 85, 85))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(28, 28, 28)
                 .addComponent(request)
                 .addGap(18, 18, 18)
                 .addComponent(addItem)
@@ -442,13 +543,13 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79)
+                .addGap(89, 89, 89)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(request)
                     .addComponent(addItem)
                     .addComponent(search)
                     .addComponent(exit))
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -486,6 +587,7 @@ public class Menu extends javax.swing.JFrame {
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         if(Authorization.authorize(uid, password))
         {
+            clearTable();
             this.search_dialog.setVisible(true);
         }
     }//GEN-LAST:event_searchActionPerformed
@@ -493,87 +595,28 @@ public class Menu extends javax.swing.JFrame {
     //////search button
     private void search_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_submitActionPerformed
         
-        String res=Inventory.searchItem(search_itemID.getText());
+        clearTable();
         
-        result.setText("\tRESULT\n\nName\tQuantity\n\n"+res);
+        String res=Inventory.searchItem(search_itemID.getText());
+        DefaultTableModel table=getModel();
+        
+        String[] row=res.split("\t");
+        table.addRow(row);
+        
+        //result.setText("\tRESULT\n\nName\tQuantity\n\n"+res);
     }//GEN-LAST:event_search_submitActionPerformed
 
     private void search_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_cancelActionPerformed
         
         jtf=new javax.swing.JTextField[]{search_itemID};
-        reset(jtf,result,null);
+        reset(jtf,null,null);
+        
+        clearTable();
         
         this.search_dialog.dispose();
     }//GEN-LAST:event_search_cancelActionPerformed
 
-    
-    /****************************Request************************************************/ 
-    private void r_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_submitActionPerformed
         
-        String result="";
-        
-        if(!invalid(r_empID.getText())&&Integer.parseInt(r_qty.getText())>0)
-        {
-            if(!(result=Inventory.searchItem(r_itemID.getText())).toLowerCase().contains("not found") &&
-                    get_cur_qty(result)>Integer.parseInt(r_qty.getText()))////if item found
-            {
-                r_msg.setForeground(Color.blue);
-                r_msg.setText("Request sent");
-
-                try
-                {
-                    //////used to extract item name
-                    //int i=result.indexOf(" ");
-                    //int j=result.indexOf("\n");
-
-                    int i=result.indexOf("\t");
-                    
-                    if(r_itemName.getText().equals(result.substring(0,i)))
-                    {
-                        new EmployeeInfo(r_empID.getText()).requestItem(new ItemInfo(r_itemID.getText(),
-                                r_itemName.getText(),Integer.parseInt(r_qty.getText()),Integer.parseInt(r_len.getText())));
-                    }
-                    else
-                    {
-                        throw new IOException();
-                    }
-                }
-                catch(IOException io)
-                {
-                    io.printStackTrace();
-
-                    r_msg.setForeground(Color.red);
-                    r_msg.setText("Request error (invalid item name)");
-                }
-                catch(Exception e)
-                {
-                    e.printStackTrace();
-                    
-                    r_msg.setForeground(Color.red);
-                    r_msg.setText("Request error");
-                }
-            }
-            else
-            {
-                r_msg.setForeground(Color.red);
-                r_msg.setText("Request error (item not found or invalid duration)");
-            }
-        }
-        else
-        {
-            r_msg.setForeground(Color.red);
-            r_msg.setText("invalid employee ID");
-        }
-    }//GEN-LAST:event_r_submitActionPerformed
-
-    private void r_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_cancelActionPerformed
-        
-        jtf=new javax.swing.JTextField[]{r_empID,r_itemID,r_itemName,r_qty};
-        reset(jtf,null,r_msg);
-        
-        this.request_dialog.dispose();
-    }//GEN-LAST:event_r_cancelActionPerformed
-    
     private void requestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestActionPerformed
         if(Authorization.authorize(uid, password))
         {
@@ -583,7 +626,19 @@ public class Menu extends javax.swing.JFrame {
     /*****************************Add item***********************************************/
     
     private void showAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllActionPerformed
-        result.setText(Inventory.showAll());
+        //result.setText(Inventory.showAll());
+        clearTable();
+        
+        DefaultTableModel table=getModel();
+        
+        String[] seg=Inventory.showAll().split(System.lineSeparator());
+        
+        for(String s:seg)
+        {
+            String[] row=s.split("\t");
+            
+            table.addRow(row);
+        }
     }//GEN-LAST:event_showAllActionPerformed
 
     private void r_itemNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_itemNameActionPerformed
@@ -649,15 +704,85 @@ public class Menu extends javax.swing.JFrame {
 
         this.add_dialog.dispose();
     }//GEN-LAST:event_add_cancelActionPerformed
+
+    private void r_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_cancelActionPerformed
+
+        jtf=new javax.swing.JTextField[]{r_empID,r_itemID,r_itemName,r_qty};
+        reset(jtf,null,r_msg);
+
+        this.request_dialog.dispose();
+    }//GEN-LAST:event_r_cancelActionPerformed
+
+    /****************************Request************************************************/ 
+    private void r_submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r_submitActionPerformed
+
+        String result="";
+
+        if(!invalid(r_empID.getText())&&Integer.parseInt(r_qty.getText())>0)
+        {
+            if(!(result=Inventory.searchItem(r_itemID.getText())).toLowerCase().contains("not found") &&
+                Inventory.getQty(r_itemID.getText())>Integer.parseInt(r_qty.getText()))////if item found
+            {
+                r_msg.setForeground(Color.blue);
+                r_msg.setText("Request sent");
+
+                try
+                {
+                    //////used to extract item name
+                    //int i=result.indexOf(" ");
+                    //int j=result.indexOf("\n");
+
+                    String[] seg=result.split("\t");
+                    
+                    if(r_itemName.getText().equals(seg[1]))
+                    {
+                        new EmployeeInfo(r_empID.getText()).requestItem(new ItemInfo(r_itemID.getText(),
+                            r_itemName.getText(),Integer.parseInt(r_qty.getText()),Integer.parseInt(r_len.getText())));
+                    }
+                    else
+                    {
+                        throw new IOException();
+                    }
+            }
+            catch(IOException io)
+            {
+                io.printStackTrace();
+
+                r_msg.setForeground(Color.red);
+                r_msg.setText("Request error (invalid item name)");
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+
+                r_msg.setForeground(Color.red);
+                r_msg.setText("Request error");
+            }
+        }
+        else
+        {
+            r_msg.setForeground(Color.red);
+            r_msg.setText("Request error (item not found or invalid duration)");
+        }
+        }
+        else
+        {
+            r_msg.setForeground(Color.red);
+            r_msg.setText("invalid employee ID");
+        }
+    }//GEN-LAST:event_r_submitActionPerformed
  
-    
+    /*
     private int get_cur_qty(String res)///get current quantity of an item
     {
         int i=res.indexOf("\t");
         
+        int qi=res.indexOf("\t",i);
+        
+        System.out.println(res.substring(i));
         try
         {
-            return Integer.parseInt(res.substring(i+1));
+            return Integer.parseInt(res.substring(qi+1));
         }
         catch(NumberFormatException e)
         {
@@ -665,7 +790,7 @@ public class Menu extends javax.swing.JFrame {
         }
         
         return 0;
-    }
+    }*/
     
     private boolean invalid(String s)///check for invalid string
     {  
@@ -675,6 +800,19 @@ public class Menu extends javax.swing.JFrame {
     private void close()
     {
         System.exit(0);
+    }
+    
+    private DefaultTableModel getModel()
+    {
+        return (DefaultTableModel)dTable.getModel();
+    }
+    
+    private void clearTable()
+    {
+        for(int i=getModel().getRowCount()-1;i>-1;i--)
+        {
+            getModel().removeRow(i);
+        }
     }
     
     /**
@@ -702,6 +840,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JDialog add_dialog;
     private javax.swing.JLabel add_msg;
     private javax.swing.JButton add_submit;
+    private javax.swing.JTable dTable;
     private javax.swing.JButton exit;
     private javax.swing.JTextField item_id;
     private javax.swing.JLabel item_id_label;
@@ -716,8 +855,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField qty;
     private javax.swing.JLabel qty_label;
@@ -731,7 +871,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton r_submit;
     private javax.swing.JButton request;
     private javax.swing.JDialog request_dialog;
-    private javax.swing.JTextArea result;
     private javax.swing.JButton search;
     private javax.swing.JButton search_cancel;
     private javax.swing.JDialog search_dialog;

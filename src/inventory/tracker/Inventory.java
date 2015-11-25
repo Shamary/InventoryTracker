@@ -158,7 +158,7 @@ public class Inventory
     
     public static String searchItem(String id)/////searches for an item in the database
     {
-        String result="not found\tnot found";
+        String result="not found\tnot found\tnot found";
         
         try
         {
@@ -174,7 +174,8 @@ public class Inventory
                     //result="Name: "+r.getString("name")+"\n";
                     //result+="Quantity: "+r.getInt("quantity");
                     
-                    result=r.getString("name")+"\t";
+                    result=r.getString("id")+"\t";
+                    result+=r.getString("name")+"\t";
                     result+=r.getInt("quantity");
                 }
             }
@@ -209,7 +210,7 @@ public class Inventory
 
                 boolean isEmpty=true;
 
-                result="ID\tName\tQuantity"+System.lineSeparator()+System.lineSeparator();
+                //result="ID\tName\tQuantity"+System.lineSeparator()+System.lineSeparator();
 
                 while(r.next())
                 {
@@ -220,7 +221,7 @@ public class Inventory
 
                     result+=r.getString("id")+"\t";
                     result+=r.getString("name")+"\t";
-                    result+=r.getInt("quantity")+System.lineSeparator()+System.lineSeparator();
+                    result+=r.getInt("quantity")+System.lineSeparator();
 
                     System.out.println(result);
                 }
@@ -247,6 +248,29 @@ public class Inventory
         }
         
         return result;
+    }
+    
+    protected static int getQty(String id)
+    {
+        try
+        {
+            PreparedStatement state=connect.prepareStatement("Select quantity from inventory.item where id=?");
+            
+            state.setString(1,id);
+            
+            ResultSet r=state.executeQuery();
+            
+            while(r.next())
+            {
+                return Integer.parseInt(r.getString("quantity"));
+            }
+        }
+        catch(SQLException se)
+        {
+            se.printStackTrace();
+        }
+        
+        return 0;
     }
     
     public static void delete(String id)////delete item with id='id' from inventory
