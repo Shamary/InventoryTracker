@@ -58,6 +58,7 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setText("jLabel5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(340, 145, 0, 0));
         setMaximumSize(new java.awt.Dimension(800, 480));
         setMinimumSize(new java.awt.Dimension(200, 180));
         setResizable(false);

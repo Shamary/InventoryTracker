@@ -473,6 +473,7 @@ public class Menu extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(340, 145, 0, 0));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
