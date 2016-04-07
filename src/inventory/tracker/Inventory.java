@@ -28,7 +28,7 @@ public class Inventory
     //private static PreparedStatement pstate;//////used to pass statements to the database such as queries or updates
     
     private static final String uname="root"///database username (if any)
-                                ,password="shamster#tech";///database password (if any)
+                                ,password="";///database password (if any)
     
     private static boolean dfound=false;
     

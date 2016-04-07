@@ -10,16 +10,16 @@ import java.io.PrintWriter;
  *
  * @author shamary williams
  */
-public class EmployeeInfo 
+public class Employee 
 {
     private String id,fname,lname;//employee id, first and last name
     
-    public EmployeeInfo(String id)
+    public Employee(String id)
     {
         this.id=id;
     }
     
-    public EmployeeInfo(String id,String fname,String lname)
+    public Employee(String id,String fname,String lname)
     {
         this.id=id;
         this.fname=fname;
@@ -56,16 +56,10 @@ public class EmployeeInfo
         return getFirstName()+" "+getLastName()+" ("+getID()+")";
     }
     
-    public void requestItem(ItemInfo item) throws IOException
+    public void RequestForItem(ItemInfo item,boolean approval) throws IOException
     {
         ////add request info
-        PrintWriter pw=new PrintWriter(Authorization.getDir("request")+id+"_request_for_"+item.getName()+".txt");
-        pw.println("Employee ID: "+id);
-        pw.println("Item ID: "+item.getID());
-        pw.println("Item name: "+item.getName());
-        pw.println("request quantity: "+item.getQty());
-        pw.println("request lenght: "+item.get_how_long()+" days");
-        pw.close();
+        (new ItemRequest(id,item.getID(),item.getName(),item.getQty(),approval,item.get_how_long())).request();
     }
     
     @Override

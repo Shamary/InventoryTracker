@@ -30,9 +30,19 @@ public class InventoryTest {
     public static void setUpClass() {
         Inventory.init("USER123","12345");
         
+        /*setup inventory with
+        T0 test0 80
+        T008 test008 57
+        T010 test010 296
+        */
+        
         Inventory.UpdateInvent(new ItemInfo(p_id,pname,80));///add item in inventory
+        Inventory.UpdateInvent(new ItemInfo(p_id+"08",pname+"08",57));
+        Inventory.UpdateInvent(new ItemInfo(p_id+"10",pname+"10",296));
         
         ids.add(p_id);
+        ids.add(p_id+"08");
+        ids.add(p_id+"10");
         
         System.out.println("item added");
     }
@@ -99,6 +109,21 @@ public class InventoryTest {
         ids.add(new_id);
     }
     
+     @Test
+    public void testUpdateInvent5() {/////add a new item id and name
+        
+        String new_id=p_id+"02";
+        String new_name=pname+"02";
+        
+        System.out.println("UpdateInvent");
+        ItemInfo item = new ItemInfo(new_id,new_name,690);
+        boolean expResult = true;
+        boolean result = Inventory.UpdateInvent(item);
+        assertEquals(expResult, result);
+        
+        ids.add(new_id);
+    }
+    
     
     /**
      * Test of update method, of class Inventory.
@@ -123,11 +148,12 @@ public class InventoryTest {
         assertEquals(expResult, result);
     }
    
+    ///Test search methods
     @Test
     public void testSearchItem() {////search random ID
         System.out.println("searchItem");
         String id = "5564";
-        String expResult = "not found\tnot found";
+        String expResult = "not found\tnot found\tnot found";
         String result = Inventory.searchItem(id);
         assertEquals(expResult, result);
     }
@@ -135,9 +161,31 @@ public class InventoryTest {
     public void testSearchItem2() {///search valid ID
         System.out.println("searchItem");
         String id = p_id;
-        String expResult = "\t"+pname+"\t";///if result contains this string then the result is valid
-        String result = Inventory.searchItem(id);
-        assertEquals(expResult.contains("\t"+pname+"\t"), result.contains("\t"+pname+"\t"));
+        boolean expResult = true;
+        
+        ///if result contains these strings then the result is valid
+        boolean result = (Inventory.searchItem(id).contains("\t"+pname+"\t")&&
+                            Inventory.searchItem(id).contains("\t"+pname+"08"+"\t"));
+        assertEquals(expResult, result);
+    }
+    
+    public void testSearchItem3() {///search valid ID
+        System.out.println("searchItem");
+        String id = p_id+"08";
+        boolean expResult = true;
+        
+        boolean result = (Inventory.searchItem(id).contains("\t"+pname+"08"+"\t")&&
+                            Inventory.searchItem(id).contains("\t"+pname+"10"+"\t"));
+        assertEquals(expResult, result);
+    }
+    
+    public void testSearchItem4() {///search valid ID
+        System.out.println("searchItem");
+        String id = p_id+"10";
+        boolean expResult = true;
+        boolean result = (Inventory.searchItem(id).contains("\t"+pname+"\t")&&
+                            Inventory.searchItem(id).contains("\t"+pname+"10"+"\t"));
+        assertEquals(expResult, result);
     }
 
     /**
@@ -146,9 +194,17 @@ public class InventoryTest {
     @Test
     public void testShowAll() {
         System.out.println("showAll");
-        String expResult = "\t"+pname+"\t";
-        String result = Inventory.showAll();
-        assertEquals(expResult.contains("\t"+pname+"\t"), result.contains("\t"+pname+"\t"));
+        boolean expResult = true;
+        boolean result = Inventory.showAll().contains("\t"+pname+"\t");
+        assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testShowAll2(){
+        System.out.println("showAll");
+        boolean expResult = false;
+        boolean result = Inventory.showAll().contains("\t"+pname+"16"+"\t");
+        assertEquals(expResult,result);
     }
     
 }

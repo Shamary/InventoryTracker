@@ -40,7 +40,7 @@ public class Authorization
             new File(report_dir).mkdir();///create directory for reports
             
             //id=USER123
-            EmployeeInfo emp=new EmployeeInfo("USER123","Kevin","Thomas");
+            Employee emp=new Employee("USER123","Kevin","Thomas");
             
             valid_file_name=valid_dir+"/"+emp.getID()+".txt";/////set the file name to the employee's ID
             

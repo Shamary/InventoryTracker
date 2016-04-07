@@ -94,6 +94,8 @@ public class Menu extends javax.swing.JFrame {
         r_submit = new javax.swing.JButton();
         r_len = new javax.swing.JTextField();
         r_cancel = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        approvedBox = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
@@ -107,7 +109,6 @@ public class Menu extends javax.swing.JFrame {
         add_dialog.setIconImage(null);
         add_dialog.setMinimumSize(new java.awt.Dimension(383, 330));
         add_dialog.setModal(true);
-        add_dialog.setPreferredSize(new java.awt.Dimension(383, 330));
         add_dialog.setResizable(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "v1.0", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tekton Pro Ext", 0, 11))); // NOI18N
@@ -213,7 +214,6 @@ public class Menu extends javax.swing.JFrame {
         search_dialog.setTitle("Lookup Item");
         search_dialog.setMinimumSize(new java.awt.Dimension(383, 330));
         search_dialog.setModal(true);
-        search_dialog.setPreferredSize(new java.awt.Dimension(383, 330));
         search_dialog.setResizable(false);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "v1.0", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tekton Pro Ext", 0, 11))); // NOI18N
@@ -383,21 +383,28 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tekton Pro Ext", 0, 14)); // NOI18N
+        jLabel2.setText("Approval:");
+
+        approvedBox.setFont(new java.awt.Font("Tekton Pro Ext", 0, 11)); // NOI18N
+        approvedBox.setText("Approved");
+        approvedBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                approvedBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addComponent(r_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(r_empID, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(r_len, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
@@ -408,18 +415,27 @@ public class Menu extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(r_qty, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                             .addComponent(r_itemName, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                            .addComponent(r_itemID, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))))
+                            .addComponent(r_itemID, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(r_len, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(r_submit)
+                            .addGap(18, 18, 18)
+                            .addComponent(r_cancel)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(approvedBox)
+                            .addComponent(r_empID, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(r_submit)
-                .addGap(18, 18, 18)
-                .addComponent(r_cancel)
-                .addGap(89, 89, 89))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
-                .addComponent(r_msg, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,13 +460,17 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(r_empID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(approvedBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(r_len, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(r_submit)
                     .addComponent(r_cancel))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         jLabel1.getAccessibleContext().setAccessibleName("");
@@ -737,8 +757,15 @@ public class Menu extends javax.swing.JFrame {
                     
                     if(r_itemName.getText().equals(seg[1]))
                     {
-                        new EmployeeInfo(r_empID.getText()).requestItem(new ItemInfo(r_itemID.getText(),
-                            r_itemName.getText(),Integer.parseInt(r_qty.getText()),Integer.parseInt(r_len.getText())));
+                        boolean appr=false;
+                        
+                        if(approvedBox.isSelected())
+                        {
+                            appr=true;
+                        }
+                        
+                        new Employee(r_empID.getText()).RequestForItem(new ItemInfo(r_itemID.getText(),
+                            r_itemName.getText(),Integer.parseInt(r_qty.getText()),Integer.parseInt(r_len.getText())),appr);
                     }
                     else
                     {
@@ -763,7 +790,7 @@ public class Menu extends javax.swing.JFrame {
         else
         {
             r_msg.setForeground(Color.red);
-            r_msg.setText("Request error (item not found or invalid duration)");
+            r_msg.setText("Request error (item not found/invalid duration/other)");
         }
         }
         else
@@ -772,6 +799,10 @@ public class Menu extends javax.swing.JFrame {
             r_msg.setText("invalid employee ID");
         }
     }//GEN-LAST:event_r_submitActionPerformed
+
+    private void approvedBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approvedBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_approvedBoxActionPerformed
  
     /*
     private int get_cur_qty(String res)///get current quantity of an item
@@ -841,6 +872,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JDialog add_dialog;
     private javax.swing.JLabel add_msg;
     private javax.swing.JButton add_submit;
+    private javax.swing.JRadioButton approvedBox;
     private javax.swing.JTable dTable;
     private javax.swing.JButton exit;
     private javax.swing.JTextField item_id;
@@ -849,6 +881,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTextField item_name;
     private javax.swing.JLabel item_name_label;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

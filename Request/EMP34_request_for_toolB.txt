@@ -1,0 +1,5 @@
+Employee ID: EMP34
+Item ID: TT
+Item name: toolB
+request quantity: 430
+request lenght: 4 days
